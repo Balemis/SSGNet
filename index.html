@@ -16,7 +16,7 @@
   <header class="topbar">
     <div class="nav-inner">
       <a class="wordmark" href="#top" aria-label="SSGNet home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>SSGNet</a>
-      <nav aria-label="Main navigation"><a href="#abstract">Abstract</a><a href="#audio">Audio samples</a><a href="#overview">Model overview</a></nav>
+      <nav aria-label="Main navigation"><a href="#abstract">Abstract</a><a href="#overview">Model overview</a><a href="#audio">Audio samples</a></nav>
     </div>
   </header>
   <main id="top">
@@ -34,6 +34,13 @@
         <div><dt>Matrix computation</dt><dd>0.45 <span>G MACs/s</span></dd></div>
       </dl>
       <p class="metric-note">SSGNet-GRU at 16 kHz, with a 64-sample spectral window and a 32-sample hop.</p>
+    </section>
+
+    <section id="overview" class="section overview-section" aria-labelledby="overview-heading">
+      <div class="section-heading"><div><p class="eyebrow">The proposed method</p><h2 id="overview-heading">Slow spectral cues, fast waveform updates</h2></div></div>
+      <p class="section-intro">SSGNet connects a Slow Spectral Branch to a Fast Time Branch. Spectral gates are reused between updates while the waveform branch continues to process every sample.</p>
+      <figure class="architecture-figure"><a href="assets/architecture.png" target="_blank" rel="noopener"><img src="assets/architecture.png" alt="SSGNet architecture: a historical spectral branch generates channel gates for the fast waveform branch, with gates held between spectral updates." loading="lazy"></a><figcaption>Fast Time Branch in blue · Slow Spectral Branch in orange</figcaption></figure>
+      <ol class="mechanism"><li><span>01</span><div><h3>Summarize historical spectra</h3><p>Frequency and temporal GRUs extract a compact representation from historical STFT features.</p></div></li><li><span>02</span><div><h3>Reuse spectral gates</h3><p>Channel-wise gates modulate the encoded waveform and remain fixed between spectral updates.</p></div></li><li><span>03</span><div><h3>Enhance each sample</h3><p>The fast backbone models waveform features, and a residual decoder reconstructs enhanced speech.</p></div></li></ol>
     </section>
 
     <section id="audio" class="section audio-section" aria-labelledby="audio-heading">
@@ -60,12 +67,7 @@
       <noscript><p>Enable JavaScript to display the audio and spectrogram comparisons, or <a href="audio/p232_030_SSGNet-GRU64.flac">download the SSGNet-GRU example</a>.</p></noscript>
     </section>
 
-    <section id="overview" class="section overview-section" aria-labelledby="overview-heading">
-      <div class="section-heading"><div><p class="eyebrow">The proposed method</p><h2 id="overview-heading">Slow spectral cues, fast waveform updates</h2></div></div>
-      <p class="section-intro">SSGNet connects a Slow Spectral Branch to a Fast Time Branch. Spectral gates are reused between updates while the waveform branch continues to process every sample.</p>
-      <figure class="architecture-figure"><a href="assets/architecture.png" target="_blank" rel="noopener"><img src="assets/architecture.png" alt="SSGNet architecture: a historical spectral branch generates channel gates for the fast waveform branch, with gates held between spectral updates." loading="lazy"></a><figcaption>Fast Time Branch in blue · Slow Spectral Branch in orange</figcaption></figure>
-      <ol class="mechanism"><li><span>01</span><div><h3>Summarize historical spectra</h3><p>Frequency and temporal GRUs extract a compact representation from historical STFT features.</p></div></li><li><span>02</span><div><h3>Reuse spectral gates</h3><p>Channel-wise gates modulate the encoded waveform and remain fixed between spectral updates.</p></div></li><li><span>03</span><div><h3>Enhance each sample</h3><p>The fast backbone models waveform features, and a residual decoder reconstructs enhanced speech.</p></div></li></ol>
-    </section>
+
 
 
   </main>
