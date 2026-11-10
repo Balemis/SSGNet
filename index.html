@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Audio examples for SSGNet: a dual-branch network for low-latency speech enhancement via Slow Spectral Gating.">
+  <meta name="theme-color" content="#235d8b">
+  <title>SSGNet — Audio Demo</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/sample-data.js" defer></script>
+  <script src="demo.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#audio">Skip to audio samples</a>
+  <header class="topbar">
+    <div class="nav-inner">
+      <a class="wordmark" href="#top" aria-label="SSGNet home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>SSGNet</a>
+      <nav aria-label="Main navigation"><a href="#abstract">Abstract</a><a href="#audio">Audio samples</a><a href="#overview">Model overview</a></nav>
+    </div>
+  </header>
+  <main id="top">
+    <section class="hero" aria-labelledby="paper-title">
+      <p class="eyebrow">Online supplementary material</p>
+      <h1 id="paper-title"><span>SSGNet:</span> A Dual-Branch Network for Low-Latency Speech Enhancement via Slow Spectral Gating</h1>
+      <p class="authors">Xiang Ye <span>·</span> Wenbin Jiang <span>·</span> Jiatao Yan</p>
+      <p class="affiliation">Hangzhou Dianzi University, Hangzhou, China</p>
+    <section id="abstract" class="hero-abstract" aria-labelledby="abstract-heading"><div class="section-heading"><div><h2 id="abstract-heading">Abstract</h2></div></div><div class="abstract-copy"><p>Neural speech enhancement faces computational challenges when low algorithmic latency and short buffering intervals are required. This paper presents the Slow Spectral Gating Network (SSGNet), a dual-branch framework with 1 ms algorithmic latency and a structural buffering latency of 62.5 µs at 16 kHz. The slow branch summarizes historical spectra at a low frame rate to guide sample-wise waveform enhancement in the fast branch. Slow spectral gating (SSG) converts these summaries into channel-wise gates that are reused across waveform updates, allowing enhancement to proceed between spectral updates. Experiments on VoiceBank+DEMAND show that SSG improves enhancement across three temporal backbones. SSGNet-GRU achieves a PESQ of 2.69, an eSTOI of 0.85, and an SI-SNR of 17.89 dB with 50.98 K parameters and 0.45 G MACs/s.</p></div></section>
+      <a class="primary-link" href="#audio">Listen to the samples <span aria-hidden="true">↓</span></a>
+      <dl class="metrics" aria-label="SSGNet-GRU configuration">
+        <div><dt>Algorithmic latency</dt><dd>1 <span>ms</span></dd></div>
+        <div><dt>Structural buffering latency</dt><dd>62.5 <span>µs</span></dd></div>
+        <div><dt>Parameters</dt><dd>50.98 <span>K</span></dd></div>
+        <div><dt>Matrix computation</dt><dd>0.45 <span>G MACs/s</span></dd></div>
+      </dl>
+      <p class="metric-note">SSGNet-GRU at 16 kHz, with a 64-sample spectral window and a 32-sample hop.</p>
+    </section>
+
+    <section id="audio" class="section audio-section" aria-labelledby="audio-heading">
+      <div class="section-heading"><div><p class="eyebrow">Listen & compare</p><h2 id="audio-heading">Audio samples</h2></div><span class="sample-chip">VoiceBank+DEMAND</span></div>
+      <p class="section-intro">Compare the same utterance across enhancement methods, then listen to each backbone with and without Slow Spectral Gating.</p>
+      <div class="comparison-panel">
+        <div class="comparison-toolbar">
+          <p>All methods · One shared magnitude scale</p>
+          <div class="playback-options"><label class="sync-option"><input id="keep-position" type="checkbox" checked>Keep playback position</label><button id="reset-playback" class="text-button" type="button">↺ Reset playback</button></div>
+        </div>
+        <nav class="comparison-jumps" aria-label="Audio comparison groups"><a href="#reference-samples">Input & reference</a><a href="#baseline-samples">Baselines</a><a href="#gru-samples">GRU</a><a href="#tcn-samples">TCN</a><a href="#ssm-samples">SSM</a></nav>
+        <div class="all-methods">
+          <div class="list-heading"><span>Method</span><span>Audio</span><span>Spectrogram · 0–8 kHz</span></div>
+          <section id="reference-samples" class="audio-group" aria-labelledby="reference-heading"><h3 id="reference-heading">Input & reference</h3><div id="reference-rows"></div></section>
+          <section id="baseline-samples" class="audio-group" aria-labelledby="baseline-heading"><h3 id="baseline-heading">Baseline methods</h3><div id="baseline-rows"></div></section>
+          <section id="gru-samples" class="audio-group" aria-labelledby="gru-heading"><h3 id="gru-heading">GRU backbone</h3><div id="gru-rows"></div></section>
+          <section id="tcn-samples" class="audio-group" aria-labelledby="tcn-heading"><h3 id="tcn-heading">TCN backbone</h3><div id="tcn-rows"></div></section>
+          <section id="ssm-samples" class="audio-group" aria-labelledby="ssm-heading"><h3 id="ssm-heading">SSM backbone</h3><div id="ssm-rows"></div></section>
+        </div>
+        <div class="comparison-footer"><span id="playback-status" role="status" aria-live="polite">Ready to listen</span><span>Mono · 16 kHz · FLAC</span></div>
+      </div>
+      <p class="viewer-note">All spectrograms use identical STFT settings and a shared magnitude scale (−80 to 0 dB). All SSGNet variants use W = 64 and H = 32.</p>
+      <p class="sample-note">These are recorded enhancement examples. The latency values above describe the model architecture.</p>
+      <noscript><p>Enable JavaScript to display the audio and spectrogram comparisons, or <a href="audio/p232_030_SSGNet-GRU64.flac">download the SSGNet-GRU example</a>.</p></noscript>
+    </section>
+
+    <section id="overview" class="section overview-section" aria-labelledby="overview-heading">
+      <div class="section-heading"><div><p class="eyebrow">The proposed method</p><h2 id="overview-heading">Slow spectral cues, fast waveform updates</h2></div></div>
+      <p class="section-intro">SSGNet connects a Slow Spectral Branch to a Fast Time Branch. Spectral gates are reused between updates while the waveform branch continues to process every sample.</p>
+      <figure class="architecture-figure"><a href="assets/architecture.png" target="_blank" rel="noopener"><img src="assets/architecture.png" alt="SSGNet architecture: a historical spectral branch generates channel gates for the fast waveform branch, with gates held between spectral updates." loading="lazy"></a><figcaption>Fast Time Branch in blue · Slow Spectral Branch in orange</figcaption></figure>
+      <ol class="mechanism"><li><span>01</span><div><h3>Summarize historical spectra</h3><p>Frequency and temporal GRUs extract a compact representation from historical STFT features.</p></div></li><li><span>02</span><div><h3>Reuse spectral gates</h3><p>Channel-wise gates modulate the encoded waveform and remain fixed between spectral updates.</p></div></li><li><span>03</span><div><h3>Enhance each sample</h3><p>The fast backbone models waveform features, and a residual decoder reconstructs enhanced speech.</p></div></li></ol>
+    </section>
+
+
+  </main>
+  <footer class="site-footer"><span>SSGNet · Online audio demo</span><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

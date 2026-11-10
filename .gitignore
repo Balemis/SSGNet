@@ -1,0 +1,20 @@
+# Local generation tools and inference records
+/generate_audio.py
+/generate_demo_assets.py
+/*_audio_manifest.json
+/assets/sample-data.json
+/inference/
+
+# Python caches and temporary files
+__pycache__/
+*.py[cod]
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# Operating system metadata
+.DS_Store
+Thumbs.db
